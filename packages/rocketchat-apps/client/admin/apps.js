@@ -2,14 +2,12 @@ import { AppEvents } from '../communication';
 const ENABLED_STATUS = ['auto_enabled', 'manually_enabled'];
 const enabled = ({ status }) => ENABLED_STATUS.includes(status);
 
-const sortByColumn = (array, column, inverted) => {
-	return array.sort((a, b) => {
-		if (a.latest[column] < b.latest[column] && !inverted) {
-			return -1;
-		}
-		return 1;
-	});
-};
+const sortByColumn = (array, column, inverted) => array.sort((a, b) => {
+	if (a.latest[column] < b.latest[column] && !inverted) {
+		return -1;
+	}
+	return 1;
+});
 
 Template.apps.onCreated(function() {
 	const instance = this;
@@ -156,10 +154,10 @@ Template.apps.events({
 	'click [data-button="install"]'() {
 		FlowRouter.go('/admin/app/install');
 	},
-	'click .installer'(e) {
+	'click .installer'() {
 		console.log('installer', this);
 		// e.currentTarget.find('rc-icon').addClass('play');
-		//play animation
+		// play animation
 	},
 	'keyup .js-search'(e, t) {
 		t.searchText.set(e.currentTarget.value);
